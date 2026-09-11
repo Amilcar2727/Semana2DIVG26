@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://ciaqhwk1nl5ql"]
+
+[ext_resource type="PackedScene" uid="uid://dex6myyy1lp4r" path="res://Escenas/pelota.tscn" id="1_kuui0"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_r87gm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vrjeq"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m74rw"]
+size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ja8ux"]
+size = Vector3(5, 1, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adb26"]
+transparency = 1
+blend_mode = 3
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_32did"]
+material = SubResource("StandardMaterial3D_adb26")
+size = Vector3(5, 1, 5)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_r87gm")
+
+[node name="Plataforma" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plataforma"]
+mesh = SubResource("BoxMesh_vrjeq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plataforma"]
+shape = SubResource("BoxShape3D_m74rw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.911382, 0.411562, 0, -0.411562, 0.911382, 0, 5.87895, 7.76648)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.872922, -0.379042, -0.307139, 0.48786, 0.678215, 0.549561, 0, -0.629564, 0.776948, 0, 0, 0)
+
+[node name="Pelota" parent="." instance=ExtResource("1_kuui0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+
+[node name="AreaQueDetectara" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AreaQueDetectara"]
+shape = SubResource("BoxShape3D_ja8ux")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AreaQueDetectara"]
+mesh = SubResource("BoxMesh_32did")
+
+[connection signal="body_entered" from="AreaQueDetectara" to="." method="_on_area_que_detectara_body_entered"]

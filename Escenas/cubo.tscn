@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctr6gcd1kjsjd"]
+
+[ext_resource type="Script" path="res://Scripts/cubo.gd" id="1_rekg8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jo5bx"]
+bounce = 0.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ldo0"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c4666"]
+material = SubResource("StandardMaterial3D_3ldo0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pblbv"]
+
+[node name="Cubo" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_jo5bx")
+script = ExtResource("1_rekg8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_c4666")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_pblbv")
